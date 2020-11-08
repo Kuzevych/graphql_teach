@@ -2,7 +2,7 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('../schema/schema');
 const mongoose = require('mongoose');
-
+const cors = require('cors')
 const Movies = require('../models/movie');
 
 const app = express();
@@ -17,10 +17,13 @@ mongoose.connect('mongodb+srv://admin1:admin1@graphql-tutorial.fknxc.mongodb.net
 },
 );
 
+app.use(cors());
+
 app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }));
+
 
 app.listen(PORT, err => {
   err ? console.log(err) : console.log('Server started!');
